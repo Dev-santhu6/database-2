@@ -134,8 +134,7 @@ DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany
 { acknowledged: true, deletedCount: 1 }
 ```
 **9.  Find customers not from Los Angeles.**
-```
-customers> db.customerdetails.find({"city": {$ne: "Los Angeles" } })
+```customers> db.customerdetails.find({"city": {$ne: "Los Angeles" } })
 [
   {
     _id: ObjectId("654ca6a8f41d0bb8c74d2fb1"),
@@ -194,6 +193,112 @@ customers> db.customerdetails.find({"city": {$ne: "Los Angeles" } })
     city: 'Toronto'
   }
 ]
+```
+**10.Find the customers who are older than age 25.**
+```
+customers> db.customerdetails.find({ "age": {$gt:("25")} })
+[
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb3"),
+    name: 'Daniel',
+    age: '28',
+    gender: 'Male',
+    city: 'Sydney'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb5"),
+    name: 'William',
+    age: '26',
+    gender: 'Male',
+    city: 'Chicago'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb7"),
+    name: 'Benjamin',
+    age: '27',
+    gender: 'Male',
+    city: 'Toronto'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb8"),
+    name: 'Mila',
+    age: '29',
+    gender: 'Female',
+    city: 'Berlin'
+  }
+]
+```
+**11.Retrieve the males who are less than 25.**
 
 ```
+customers> db.customerdetails.find({ "age": {$lt:("25")},"gender":"Male" })
+[
+  {
+    _id: ObjectId("654cb000f41d0bb8c74d2fba"),
+    name: 'Sajee',
+    age: '24',
+    gender: 'Male',
+    city: 'Toronto'
+  }
+]
+```
+**12.Update Francis age to 35, if Francis is not available upsert. **
+```
+customers> db.customerdetails.update({"name":"Francis"},{ $set: {"age":"35"}},{ upsert: true })
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: ObjectId("654ceed0937b2d69715cfcba"),
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
 
+```
+**13.Retrieve males who are younger than 30 and older than25.**
+```
+customers> db.customerdetails.find({ "age": {$lt:("30"),$gt:("25")},"gender":"Male" })
+[
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb3"),
+    name: 'Daniel',
+    age: '28',
+    gender: 'Male',
+    city: 'Sydney'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb5"),
+    name: 'William',
+    age: '26',
+    gender: 'Male',
+    city: 'Chicago'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb7"),
+    name: 'Benjamin',
+    age: '27',
+    gender: 'Male',
+    city: 'Toronto'
+  }
+]
+```
+**14.Find a customer who is lesser than or equal to 23.**
+```
+customers> db.customerdetails.find({ "age": {$lte:("23")} })
+[
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb2"),
+    name: 'Emily',
+    age: '22',
+    gender: 'Female',
+    city: 'London'
+  },
+  {
+    _id: ObjectId("654ca6a8f41d0bb8c74d2fb6"),
+    name: 'Olivia',
+    age: '23',
+    gender: 'Female',
+    city: 'Los Angeles'
+  }
+]
+```
