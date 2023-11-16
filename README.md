@@ -1,5 +1,5 @@
 # database-2
-**1.Create a Database called movies.**
+**1.Create a Database called customer.**
 ```
 test> use customers
 switched to db customers
